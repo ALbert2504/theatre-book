@@ -37,6 +37,9 @@ const bookingsActions: ActionTree<IBookingState, IRootState> = {
   },
   async getMyBookings({ commit, rootGetters }) {
     try {
+      if (!rootGetters?.user?.id) {
+        return;
+      }
       const receivedData = await bookingService.getMyBookings(rootGetters.user.id);
 
       if (!receivedData) {
