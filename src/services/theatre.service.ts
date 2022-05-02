@@ -22,7 +22,7 @@ class TheatreService {
     }
   }
 
-  async createTheatre(data: Theatre) {
+  async createTheatre(data: Theatre): Promise<Theatre | void> {
     try {
       const response = await request<ITheatreData>('POST', 'theatres/create', data);
 
@@ -32,9 +32,26 @@ class TheatreService {
 
       const { data: responseData } = response;
 
-      console.log(responseData);
 
       return responseData.data.theatre;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async deleteTheatre(id: string): Promise<any | void> {
+    try {
+      const response = await request<ITheatreData>('DELETE', `theatres/delete/${id}`);
+
+      if (!response?.data?.success) {
+        throw new Error('Something went wrong');
+      }
+
+      const { data: responseData } = response;
+
+      console.log(responseData);
+
+      return responseData.data.deletedTheatre;
     } catch (e) {
       console.log(e);
     }

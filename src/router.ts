@@ -3,6 +3,8 @@ import { useToast } from 'vue-toastification';
 
 // Components
 import Plays from '@/pages/Plays.vue';
+import MyBookings from '@/pages/MyBookings.vue';
+
 import Theatres from '@/pages/admin/Admin/Theatres.vue';
 import Bookings from '@/pages/admin/Admin/Bookings.vue';
 import Admin from '@/pages/admin/Admin/Admin.vue';
@@ -34,8 +36,10 @@ const router = createRouter({
   routes: [
     { path: '/', redirect: '/plays' },
     { path: '/plays', component: Plays },
+    { path: '/my-bookings', component: MyBookings },
     {
       path: '/admin',
+      redirect: '/admin/theatres',
       component: Admin,
       beforeEnter: beforeEnterAdminRoute,
       children: [

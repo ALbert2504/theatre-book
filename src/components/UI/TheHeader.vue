@@ -2,14 +2,16 @@
   <header class="header">
     <app-wrapper>
       <div class="header-content">
-        <h1 class="header__title">
+        <router-link to="/plays" class="header__title">
           <img class="header__title-logo" src="../../assets/images/logo.png" alt="logo">
-          <span class="header__title-text">
+          <h1 class="header__title-text">
             Theatre API
-          </span>
-        </h1>
+          </h1>
+        </router-link>
         <h2 class="header__user-info" v-if="user">
-          <span>{{ user.name }}: {{ user.id }}</span>
+          <router-link class="header__user-name" to="/my-bookings" title="My bookings">
+            {{ user.name }}: {{ user.id }}
+          </router-link>
         </h2>
         <base-button @click="handleGenerateId"  v-else btnType="secondary">Generate uid</base-button>
       </div>
@@ -99,6 +101,10 @@ export default defineComponent({
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
+  text-decoration: none;
+}
+.header__title:hover .header__title-text {
+  color: var(--secondary-lighter);
 }
 .header__title-logo {
   width: 48px;
@@ -106,9 +112,17 @@ export default defineComponent({
 .header__title-text {
   color: var(--white);
   margin-left: 14px;
+  transition: color .3s ease-in-out;
 }
 .header__user-info {
   color: var(--white);
+}
+.header__user-name {
+  color: var(--white);
+  transition: color .3s ease-in-out;
+}
+.header__user-name:hover {
+  color: var(--secondary-lighter);
 }
 
 .create-user-form {

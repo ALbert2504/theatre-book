@@ -8,9 +8,9 @@
         </h3>
         <div class="card__actions">
           <span class="card__date">
-            {{ date }}
+            {{ playDate }}
           </span>
-          <base-button @click="handleSelectPlay" btnType="secondary">
+          <base-button @click="handleSelectPlay" btnType="secondary" v-if="!isBooked">
             Book
           </base-button>
         </div>
@@ -45,6 +45,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useToast } from 'vue-toastification';
+import moment from 'moment';
 
 // Components
 import BaseModal from "@/components/UI/BaseModal.vue";
@@ -54,6 +55,7 @@ import { emailRegexp } from '@/constants';
 
 // Models
 import { Booking } from '@/models';
+import { Booking as BookingType } from '@/store/modules/bookings/types';
 
 const toast = useToast();
 
@@ -103,6 +105,12 @@ export default defineComponent({
     myName() {
       return this.$store.getters.user.name;
     },
+    playDate() {
+      return moment(this.date).format('DD-MM-YYYY HH:mm');
+    },
+    isBooked() {
+      return this.$store.getters["bookings/myBookings"].some((myBooking: BookingType) => myBooking.theatreId === this.id);
+    },
   },
 });
 </script>
@@ -114,6 +122,8 @@ export default defineComponent({
   }
   .card__img {
     width: 100%;
+    height: 200px;
+    object-fit: cover;
     display: block;
   }
   .card__content {

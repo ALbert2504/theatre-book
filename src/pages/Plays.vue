@@ -40,9 +40,13 @@ export default defineComponent({
     getTheatres() {
       this.$store.dispatch('theatres/getTheatres');
     },
+    getMyBookings() {
+      this.$store.dispatch('bookings/getMyBookings');
+    }
   },
   mounted() {
     this.getTheatres();
+    this.getMyBookings();
   }
 });
 </script>

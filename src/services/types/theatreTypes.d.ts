@@ -1,5 +1,5 @@
 export interface ITheatreData {
-  data: {
+  data?: {
     [key]: unknown;
   }
   success: boolean;
